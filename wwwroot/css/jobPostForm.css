@@ -1,0 +1,21 @@
+@charset "utf-8";
+
+.my-form {
+    border: 0.1em solid #000000;
+    border-radius: 1em;
+    width: 100%;
+    margin-top: 2em;
+    padding: 1.5em;
+}  
+
+.my-form .form-header h1, .my-form .form-header h4 {
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.my-form .form-header {
+    border-bottom: 0.2em solid #808080;
+    margin-bottom: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

@@ -1,0 +1,84 @@
+﻿@{
+    ViewData["Title"] = "Applications";
+}
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () { LoadData() })
+
+    function LoadData(){
+        var applicantId = {id: "applicantId" }
+
+        $.ajax({
+            url: "/Application/GetApplicationsList",
+            dataType: "json",
+            contentType: "applicant/json",
+            type: "GET",
+            data: applicantId,
+            success: function(response){
+                var html = '';
+                $.each(response, function(key, item){
+                    console.log(item)
+                    html += '<tr>'
+                    html += '<td>' + item.position + '</td>'
+                    html += '<td>' + item.description + '</td>'
+                    html += '<td>' + item.company + '</td>'
+                    html += '<td>' + item.location + '</td>'
+                    html += '<td>' + item.applicationDate + '</td>'
+                    html += '<td> <button class="btn btn-danger" onclick="DeleteApplication(' + item.applicationId + ')">Withdraw</button> </td>'
+                    html += '</tr>'
+                })
+                $('.job-post-tbody').html(html)
+            },
+            error: function(errorMessage){
+                console.log(errorMessage.resonseText)
+            }
+        })
+    }
+
+    function DeleteApplication(applicationId) {
+        var ans = confirm("Are you sure to withdraw this application?")
+
+        console.log(applicationId)
+        if(ans){
+            $.ajax({
+                url: "/Application/DeleteApplication",
+                contentType: "application/json",
+                dataType: "json",
+                type: "POST",
+                data: JSON.stringify(applicationId),
+                success: function(response) {
+                    LoadData()
+                    alert("Done")
+                },
+                error: function (errorMessage) {
+                    alert(errorMessage.responseText)
+                }
+            })
+        }
+        
+    }
+</script>
+
+<center>
+
+    <br />
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <td><strong>Position</strong></td>
+                <td><strong>Description</strong></td>
+                <td><strong>Company</strong></td>
+                <td><strong>Location</strong></td>
+                <td><strong>Date</strong></td>
+                <td><strong>Actions</strong></td>
+            </tr>
+        </thead>
+        <tbody class="job-post-tbody">
+            @* ------------  Jobs Here -----------------*@
+        </tbody>
+    </table>
+
+</center>

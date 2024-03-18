@@ -1,0 +1,83 @@
+﻿@{
+    ViewData["Title"] = "Job Form";
+}
+
+<script type="text/javascript">
+
+    function AddJob() {
+        var jobObj = {
+            Position: $('.position').val(), 
+            Location: $('.location').val(),
+            Company: $('.company').val(), 
+            Description: $('.description').val()
+        }
+
+        console.log(jobObj)
+
+        $.ajax({
+            url: "/JobPost/AddJob",
+            type: "POST",
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify(jobObj),
+            success: function (response) {
+                ClearInputs();
+                alert("Done")
+            },
+            error: function (errorMessage) {
+                alert(errorMessage.responseText)
+            }
+        })
+    }
+
+    function ClearInputs(){
+        $('.position').val("")
+        $('.location').val("")
+        $('.company').val("")
+        $('.description').val("")
+    }
+</script>
+
+<div class="my-form">
+    <div class="form-header">
+        <h1>Job Form</h1>
+        <h4>Give others the opportunity to grow !</h4>
+    </div>
+    <div class="job-post-form">
+        <form class="row g-3">
+            <div class="col-md-4">
+                <label for="validationDefault01" class="form-label">Position</label>
+                <input type="text" class="form-control position" id="validationDefault01" required>
+            </div>
+            <div class="col-md-4">
+                <label for="validationDefault02" class="form-label">Company</label>
+                <input type="text" class="form-control company" id="validationDefault02" required>
+            </div>
+            <div class="col-md-4">
+                <label for="validationDefault01" class="form-label">Location</label>
+                <div class="input-group has-validation">
+                    <span class="input-group-text" id="inputGroupPrepend3"><i class="bi bi-geo-alt-fill"></i></span>
+                    <input type="text" class="form-control location" id="validationDefaultUsername" aria-describedby="inputGroupPrepend2" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="validationTextarea" class="form-label">Description</label>
+                <textarea class="form-control description" id="validationTextarea description" placeholder="Job Description" required></textarea>
+            </div>
+            <div class="col-12">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                    <label class="form-check-label" for="invalidCheck">
+                        Agree to terms and conditions
+                    </label>
+                    <div class="invalid-feedback">
+                        You must agree before submitting.
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <button class="btn btn-primary" type="button" onclick="AddJob();">Post Job</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,259 @@
+﻿@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Monoton&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border-style: none;
+    vertical-align: baseline;
+    box-sizing: border-box;
+}
+
+.flexbox {
+    display: flex;
+    height: 100%;
+}
+
+/*---------------------------------------*/
+/*----------------HEADER-----------------*/
+/*---------------------------------------*/
+
+header {
+    width: 100%;
+    height: 15vh;
+    background-color: #3d3d3d;
+    overflow: hidden;
+}
+
+.header-title {
+    font-family: Monoton;
+    font-size: 3em;
+    width: 23%;
+    line-height: 15vh;
+    color: #fff;
+    text-decoration: none;
+}
+
+.header-title span {
+    color: #BAFF39;
+}
+
+nav {
+    width: 60%;
+}
+
+nav .list-menu {
+    display: flex;
+    list-style: none;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    font-family: Lato;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0.6em 1em;
+    color: #fff;
+    border-radius: 1em;
+}
+
+nav li .link {
+    text-decoration: none;
+    color: #fff;
+}
+
+job-post-tbody .link {
+    text-decoration: none;
+    color: #1d59d5;
+}
+
+nav li:hover, nav li:hover .link {
+    background-color: #BAFF39;
+    color: #000;
+}
+
+.account-btns {
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+}
+
+.account-btns .username {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 700;
+}
+
+.account-btns .session-list {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.logout-btn {
+    background-color: #000;
+    font-weight: 600;
+    color: #BAFF39;
+    width: 6em;
+    height: 2.5em;
+    font-family: 'Nunito Sans',sans-serif;
+    border-radius: 10px;
+    margin-left: 1em;
+}
+
+/*---------------------------------------*/
+/*----------------MAIN-------------------*/
+/*---------------------------------------*/
+.job-visualization-section {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    gap: 2em;
+    position: relative;
+}
+
+.job-posting {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin-top: 1.5em;
+    height: 80vh;
+    border-radius: 1em;
+    border: 0.1em solid;
+    padding: 0.5em;
+}
+
+.job-posting-container {
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+    overflow-x: hidden;
+    display: block;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1.5em;
+}
+
+.job-display {
+    width: 40%;
+    position: relative;
+    margin-top: 1.5em;
+    border-radius: 1em;
+    border: 0.1em solid;
+    padding: 1.5em 1.5em 0.8em 1.5em;
+    overflow: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 12em;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #000;
+    border-radius: 6px;
+    width: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.job-info {
+    width: 97%;
+    height: 15em;
+    border: 0.2em solid #D4D2D0;
+    border-radius: 0.8em;
+    overflow: hidden;
+    padding: 0.8em;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.job-info:hover {
+    border-color: #BAFF39;
+    box-shadow: 0 0 10px 1px #BAFF39;
+}
+
+.job-info h2 {
+    font-family: Montserrat;
+    font-size: 1.8em;
+    font-weight: 600;
+}
+
+.job-info h4, .job-info h5 {
+    font-family: Montserrat;
+    font-size: 1.3em;
+    font-weight: 500;
+}
+
+.job-info p {
+    font-family: 'Nunito Sans', sans-serif;
+    margin-top: 1.5em;
+}
+
+.job-info + .job-info {
+    margin-top: 1.5em;
+}
+
+.job-details {
+    height: 72vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.job-details-header {
+    height: 45%;
+}
+
+.job-details-header h3 {
+    margin-top: 0.9em;
+    font-family: Montserrat;
+    font-size: 2em;
+    font-weight: 700;
+    position: relative;
+}
+
+.apply-btn {
+    position: absolute;
+    background-color: #BAFF39;
+    width: 7em;
+    height: 2.8em;
+    font-family: 'Nunito Sans',sans-serif;
+    border-radius: 10px;
+    right: 2.3em;
+    top: 7.8em;
+}
+
+.bi-check-circle {
+    color: green;
+    font-size: 3em;
+}
+
+.modal-body .confirm-text {
+    font-size: 1.8em;
+}
+
+.job-description {
+    height: 100%;
+    overflow: scroll;
+}
+
+/*---------------------------------------*/
+/*----------------FOOTER-----------------*/
+/*---------------------------------------*/

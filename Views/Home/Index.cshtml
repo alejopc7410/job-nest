@@ -1,0 +1,157 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () { LoadData() })
+
+    function LoadData() {
+        $.ajax({
+            url: "/JobPost/GetJobs",
+            type: "GET",
+            contentType: "application/json",
+            dataType: "json",
+            success: function (response) {
+                var html = '';
+                $.each(response, function (key, item) {
+                    html += '<div class="job-info" onclick="GetJobById(' + item.jobId + ');">';
+                    html += '<h2>' + item.position + '</h2>';
+                    html += '<h4><i class="bi bi-building-fill"></i>&nbsp;' + item.company + '</h4>';
+                    html += '<h5><i class="bi bi-geo-alt-fill"></i>&nbsp;' + item.location + '</h5>';
+                    html += '<hr>';
+                    html += '<p>' + item.description + '</p>';
+                    html += '</div>';
+                })
+                $('.job-posting-container').html(html)
+            },
+            error: function (errorMessage) {
+                alert(errorMessage.responseText)
+            }
+        })
+    }
+
+    function GetJobById(jobId) {
+        $.ajax({
+            url: "/JobPost/GetJobById",
+            type: "GET",
+            contentType: "application/json",
+            dataType: "json",
+            data: {jobId : jobId},
+            success: function (response) {
+                console.log(response.job)
+                $('.job-details-header h3').text(response.job.position)
+                $('.job-details-header h4 span').text(response.job.company)
+                $('.job-details-header h5 span').text(response.job.location)
+                $('.job-description p').text(response.job.description)
+                $('.job-details-header button').attr('class', 'apply-btn')
+                if(response.applied){
+                    $('.apply-btn').prop('disabled', true)
+                    $('.apply-btn').text('Applied')
+                    $('.close-btn').attr('onclick', 'GetJobById(' + jobId + '); location.reload();')
+                } else{
+                    $('.apply-btn').prop('disabled', false)
+                    $('.apply-btn').text('Apply Now')
+                    $('.apply-btn').attr('onclick', 'ShowConfirmModal(' + jobId + ')')
+                    $('.apply-btn').attr('data-bs-toggle', 'modal')
+                    $('.apply-btn').attr('data-bs-target', '#exampleModal')
+                }
+                
+            },
+            error: function (errorMessage) {
+                alert(errorMessage.responseText)
+            }
+        })
+    }
+
+    function ShowConfirmModal(jobId) { $('.confirm-btn').attr('onclick', 'ApplyJob(' + jobId + ')') }
+
+    function ApplyJob(jobId) {
+        var applicationObj = {
+            JobId: jobId
+        }
+
+        if ($('.confirm-btn').val() == "true") {
+            $.ajax({
+                url: "/JobPost/ApplyJob",
+                dataType: "json",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(applicationObj),
+                success: function (response){
+                    $('.confirm-btn').hide()
+                    $('.modal-body').html("<i class='bi bi-check-circle'></i> &nbsp; <p class='confirm-text'>¡ Application Submited !</p>")
+                },
+                error: function(errorMessage){
+                    alert(errorMessage.responseText)
+                }
+            })
+        }
+    }
+</script>
+<button></button>
+<body>
+    <main>
+        <div class="job-visualization-section container ">
+            <div class="job-posting">
+                <div class="job-posting-container">
+                    <div class="job-info">
+                        <h2>Sales Associate</h2>
+                        <h4><i class="bi bi-building-fill"></i>&nbsp;Under Armour <span>&nbsp;&nbsp;3.5&nbsp;<i class="bi bi-star-fill"></i></span></h4>
+                        <h5><i class="bi bi-geo-alt-fill"></i>&nbsp;Winnipeg, MB</h5>
+                        <hr>
+                        <p>
+                            Description Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+                            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+                            est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                            commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+                            laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="job-display">
+                <div class="job-details">
+                    <div class="job-details-header">
+                        <h3>Sales Associate</h3>
+                        <h4><i class="bi bi-building-fill"></i>&nbsp;<span>Under Armour</span></h4>
+                        <h5><i class="bi bi-geo-alt-fill"></i>&nbsp;<span>Winnipeg, MB</span></h5>
+                        <button></button>
+                        <hr> <hr>
+                    </div>
+                    <div class="job-description">
+                        <h4>Job Details:</h4>
+                        <p>
+                            Description Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+                            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+                            est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                            commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+                            laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm Application</h1>
+                    </div>
+                    <div class="modal-body">
+                        <p>Please confirm your interest to apply for this position</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary close-btn" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary confirm-btn" value="true">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer></footer>
+</body>
