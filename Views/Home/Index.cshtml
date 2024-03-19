@@ -50,7 +50,7 @@
                 if(response.applied){
                     $('.apply-btn').prop('disabled', true)
                     $('.apply-btn').text('Applied')
-                    $('.close-btn').attr('onclick', 'GetJobById(' + jobId + '); location.reload();')
+                    $('.close-btn').attr('onclick', 'GetJobById(' + jobId + '); LoadData();')
                 } else{
                     $('.apply-btn').prop('disabled', false)
                     $('.apply-btn').text('Apply Now')
@@ -66,7 +66,11 @@
         })
     }
 
-    function ShowConfirmModal(jobId) { $('.confirm-btn').attr('onclick', 'ApplyJob(' + jobId + ')') }
+    function ShowConfirmModal(jobId) { 
+        $('.confirm-btn').attr('onclick', 'ApplyJob(' + jobId + ')') 
+        $('.confirm-btn').show()
+        $('.modal-body').html("<p>Please confirm your interest to apply for this position</p>")
+    }
 
     function ApplyJob(jobId) {
         var applicationObj = {
@@ -119,7 +123,14 @@
                         <h3>Sales Associate</h3>
                         <h4><i class="bi bi-building-fill"></i>&nbsp;<span>Under Armour</span></h4>
                         <h5><i class="bi bi-geo-alt-fill"></i>&nbsp;<span>Winnipeg, MB</span></h5>
-                        <button></button>
+                        @if (User.IsInRole("Recruiter"))
+                        {
+                            <span class="badge text-bg-secondary">View Mode</span>
+                        }
+                        else
+                        {
+                            <button></button>                            
+                        }
                         <hr> <hr>
                     </div>
                     <div class="job-description">
