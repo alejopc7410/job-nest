@@ -1,4 +1,5 @@
 ﻿using JNFinalProject.Models;
+using System.Reflection;
 
 namespace JNFinalProject.Data
 {
@@ -25,7 +26,7 @@ namespace JNFinalProject.Data
         
         public bool AddJob(Job job)
         {
-            return repository.AddJob(job);
+            return repository.AddJob(job);           
         }
         
         public bool Editjob(Job job)

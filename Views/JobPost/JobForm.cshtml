@@ -3,6 +3,7 @@
 }
 
 <script type="text/javascript">
+    $(document).ready(function () { $('.alert-warning').hide() })
 
     function AddJob() {
         var jobObj = {
@@ -12,25 +13,45 @@
             Description: $('.description').val()
         }
 
-        console.log(jobObj)
+        var isEmpty = false;
 
-        $.ajax({
-            url: "/JobPost/AddJob",
-            type: "POST",
-            contentType: "application/json",
-            dataType: "json",
-            data: JSON.stringify(jobObj),
-            success: function (response) {
-                ClearInputs();
-                alert("Done")
-            },
-            error: function (errorMessage) {
-                alert(errorMessage.responseText)
+        $('input[type="text"]').each(function () {
+            if ($(this).val().trim() === '') {
+                isEmpty = true;
+                return false;
             }
         })
+
+        if (isEmpty || $('.description').val() === '') {
+            $('.alert-warning').show()
+            $('.alert-warning span').text("None of the fields can be empty. Check again")
+        }
+        else if (!$('.form-check-input').is(':checked')) {
+            $('.alert-warning').show()
+            $('.alert-warning span').text("You must agree terms and conditions before submitting.")
+        }
+        else {
+            $.ajax({
+                url: "/JobPost/AddJob",
+                type: "POST",
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify(jobObj),
+                success: function (response) {
+                    $('.alert-warning').hide()
+                    ClearInputs();
+                    alert("Done")
+                    window.location.href = '/JobPost/JobList'
+                },
+                error: function (errorMessage) {
+                    alert(errorMessage.responseText)
+                }
+            })
+        }
     }
 
     function ClearInputs(){
+        $('.form-check-input').removeAttr('checked')
         $('.position').val("")
         $('.location').val("")
         $('.company').val("")
@@ -75,6 +96,11 @@
                     </div>
                 </div>
             </div>
+            <br />
+            <div class="alert alert-warning" role="alert">
+                <i class="bi bi-exclamation-circle-fill"></i> &nbsp; <span></span>
+            </div>
+            <br />
             <div class="col-12">
                 <button class="btn btn-primary" type="button" onclick="AddJob();">Post Job</button>
             </div>
