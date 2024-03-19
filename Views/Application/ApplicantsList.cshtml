@@ -25,7 +25,7 @@
                     html += '<td>' + item.applicantName + '</td>'
                     html += '<td>' + item.applicationDate + '</td>'
                     html += '<td>' + item.jobApplied + '</td>'
-                    html += '<td> <button class="btn btn-danger" onclick="DeleteApplicant(' + item.applicationId + ')">Withdraw</button> </td>'
+                    html += '<td> <button class="btn btn-danger" onclick="DeleteApplicant(' + item.applicationId + ')">Reject Applicant</button> </td>'
                     html += '</tr>'
                 })
                 $('.job-post-tbody').html(html)

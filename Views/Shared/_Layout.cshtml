@@ -32,21 +32,25 @@
         <div class="container flexbox">
             <h1 class="header-title">Job<span> Nest</span></h1>
             <nav>
-                @if (User.IsInRole("Recruiter"))
+                @if (User.Identity.IsAuthenticated)
                 {
-                    <ul class="list-menu">
-                        <li>@Html.ActionLink("Posted Jobs", "JobList", "JobPost", null, new { @class = "link" })</li>
-                        <li> @Html.ActionLink("Create a Job Post", "JobForm", "JobPost", null, new { @class = "link" }) </li>
-                        <li> @Html.ActionLink("Applicants", "ApplicantsList", "Application", null, new { @class = "link" }) </li>
-                    </ul>
+                    @if (User.IsInRole("Recruiter"))
+                    {
+                        <ul class="list-menu">
+                            <li>@Html.ActionLink("Posted Jobs", "JobList", "JobPost", null, new { @class = "link" })</li>
+                            <li> @Html.ActionLink("Create a Job Post", "JobForm", "JobPost", null, new { @class = "link" }) </li>
+                            <li> @Html.ActionLink("Applicants", "ApplicantsList", "Application", null, new { @class = "link" }) </li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="list-menu">
+                            <li>@Html.ActionLink("Home", "Index", "Home", null, new { @class = "link" })</li>
+                            <li>@Html.ActionLink("Your Applications", "Applications", "Application", null, new { @class = "link" })</li>
+                        </ul>
+                    }
                 }
-                else
-                {
-                    <ul class="list-menu">
-                        <li>@Html.ActionLink("Home", "Index", "Home", null, new { @class = "link" })</li>
-                        <li>@Html.ActionLink("Your Applications", "Applications", "Application", null, new { @class = "link" })</li>
-                    </ul>
-                }
+                
             </nav>
             <div class="account-btns">
                 @if (SignInManager.IsSignedIn(User))

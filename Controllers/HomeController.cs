@@ -14,7 +14,7 @@ namespace JNFinalProject.Controllers
             _logger = logger;
         }
 
-        [Authorize(Roles = "Applicant, Recruiter")]
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();

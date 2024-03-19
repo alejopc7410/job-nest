@@ -6,6 +6,7 @@ namespace JNFinalProject.Data
     public class JobPostRepository
     {
         ApplicationDbContext ApplicationDbContext = new ApplicationDbContext();
+
         
         public List<Job> GetJobs()
         {

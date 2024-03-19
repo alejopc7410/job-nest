@@ -5,8 +5,15 @@
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
 
+
 <script type="text/javascript">
-    $(document).ready(function () { LoadData() })
+    $(document).ready(function () {
+        LoadData() 
+    })
+
+    function IsNotRegistered() {
+        $("#staticBackdrop").modal("show");
+    }
 
     function LoadData() {
         $.ajax({
@@ -97,72 +104,91 @@
 </script>
 <button></button>
 <body>
-    <main>
-        <div class="job-visualization-section container ">
-            <div class="job-posting">
-                <div class="job-posting-container">
-                    <div class="job-info">
-                        <h2>Sales Associate</h2>
-                        <h4><i class="bi bi-building-fill"></i>&nbsp;Under Armour <span>&nbsp;&nbsp;3.5&nbsp;<i class="bi bi-star-fill"></i></span></h4>
-                        <h5><i class="bi bi-geo-alt-fill"></i>&nbsp;Winnipeg, MB</h5>
-                        <hr>
-                        <p>
-                            Description Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-                            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-                            est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                            commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-                            laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
+    @if (!User.Identity.IsAuthenticated)
+    {    
+        <center>
+            <div class="container-fluid center">
+                <br />
+                <br />
+                <h2>Welcome</h2>
+                <br />
+                <h4>In order to access to the web page, we need that you are registered</h4>
+                <br />
+                <hr />
+            </div>      
+        </center>        
+    }
+    else
+    {
+        <main>
+        
+            <div class="job-visualization-section container ">
+                <div class="job-posting">
+                    <div class="job-posting-container">
+                        <div class="job-info">
+                            <h2>Sales Associate</h2>
+                            <h4><i class="bi bi-building-fill"></i>&nbsp;Under Armour <span>&nbsp;&nbsp;3.5&nbsp;<i class="bi bi-star-fill"></i></span></h4>
+                            <h5><i class="bi bi-geo-alt-fill"></i>&nbsp;Winnipeg, MB</h5>
+                            <hr>
+                            <p>
+                                Description Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+                                ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+                                est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+                                laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="job-display">
+                    <div class="job-details">
+                        <div class="job-details-header">
+                            <h3>Sales Associate</h3>
+                            <h4><i class="bi bi-building-fill"></i>&nbsp;<span>Under Armour</span></h4>
+                            <h5><i class="bi bi-geo-alt-fill"></i>&nbsp;<span>Winnipeg, MB</span></h5>
+                            @if (User.IsInRole("Recruiter"))
+                            {
+                                <span class="badge text-bg-secondary">View Mode</span>
+                            }
+                            else
+                            {
+                                <button></button>                            
+                            }
+                            <hr> <hr>
+                        </div>
+                        <div class="job-description">
+                            <h4>Job Details:</h4>
+                            <p>
+                                Description Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+                                ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+                                est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+                                laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="job-display">
-                <div class="job-details">
-                    <div class="job-details-header">
-                        <h3>Sales Associate</h3>
-                        <h4><i class="bi bi-building-fill"></i>&nbsp;<span>Under Armour</span></h4>
-                        <h5><i class="bi bi-geo-alt-fill"></i>&nbsp;<span>Winnipeg, MB</span></h5>
-                        @if (User.IsInRole("Recruiter"))
-                        {
-                            <span class="badge text-bg-secondary">View Mode</span>
-                        }
-                        else
-                        {
-                            <button></button>                            
-                        }
-                        <hr> <hr>
-                    </div>
-                    <div class="job-description">
-                        <h4>Job Details:</h4>
-                        <p>
-                            Description Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-                            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-                            est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                            commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-                            laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm Application</h1>
+                        </div>
+                        <div class="modal-body">
+                            <p>Please confirm your interest to apply for this position</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary close-btn" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary confirm-btn" value="true">Confirm</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm Application</h1>
-                    </div>
-                    <div class="modal-body">
-                        <p>Please confirm your interest to apply for this position</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary close-btn" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary confirm-btn" value="true">Confirm</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+        </main>
+    }
+    
     <footer></footer>
 </body>
