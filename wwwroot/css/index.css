@@ -33,8 +33,9 @@ header {
     line-height: 15vh;
     color: #fff;
     text-decoration: none;
+    cursor: pointer;
 }
-
+ 
 .header-title span {
     color: #BAFF39;
 }
